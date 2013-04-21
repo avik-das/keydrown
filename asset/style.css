@@ -1,0 +1,14 @@
+body {
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.content {
+  margin: 0 auto;
+  width: 800px;
+}
+
+.log-output {
+  background: #e8e8e8;
+  height: 200px;
+  overflow: auto;
+}

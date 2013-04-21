@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <meta content="utf-8" http-equiv="encoding">
+  <link type="text/css" rel="stylesheet" href="asset/style.css"/>
+</head>
+<body>
+  <div class="content">
+    <h1>Keydrown</h1>
+    <h2>A JavaScript key state handler for web apps</h2>
+    <p>Keydrown is a library for managing the state of the keyboard in a web application or game.  It is tiny (about .5Kb), unobtrusive and can be learned in about five minutes.</p>
+    <h3>Why is Keydrown useful?</h3>
+    <p>When you bind a function to the <code>keydown</code> event, it doesn't fire consistently.  The web browser uses the operating system's built-in keyboard delay preferences, and the first brief moment after the initial key press does not fire the event handler.  Here's a demonstration of native behavior:</p>
+    <pre>
+  document.addEventListener('keydown', function (evt) {
+    if (evt.keyCode === 81) {
+      console.log('The "Q" key is being held down...?');
+    }
+  });
+
+  document.addEventListener('keyup', function (evt) {
+    if (evt.keyCode === 81) {
+      console.clear();
+    }
+  });
+    </pre>
+    <p>Press and hold the "Q" key:</p>
+    <div id="native-hold" class="log-output"></div>
+    <p>Notice the lag at the beginning of the hold.  This sluggishness noticeably impacts the user experience of applications &mdash; especially games.  A better way to handle the <code>keydown</code> event is to record when a key is pressed, invoke the handler function for every update, and then stop invoking the handler when an analagous <code>keyup</code> event is detected.  Keydrown makes this really easy:</p>
+    <pre >
+  kd.P.down(function () {
+   console.log('The "P" key is being held down!');
+  });
+
+  kd.P.up(function () {
+   console.clear();
+  });
+
+  // This update loop is the heartbeat of Keydrown
+  kd.run(function () {
+    kd.tick();
+  });
+    </pre>
+    <p>Press and hold the "P" key:</p>
+    <div id="kd-hold" class="log-output"></div>
+    <p>As you can see, the responsiveness from the code example using Keydrown is much more responsive.</p>
+  </div>
+  <script src="dist/keydrown.min.js"></script>
+  <script src="asset/index.js"></script>
+</body>
+</html>
